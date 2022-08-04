@@ -2,10 +2,10 @@ import time
 from grove.gpio import GPIO
 
 touch1 = GPIO(10, GPIO.IN)
-touch2 = GPIO(10, GPIO.IN)
-touch3 = GPIO(10, GPIO.IN)
-touch4 = GPIO(10, GPIO.IN)
-touch5 = GPIO(10, GPIO.IN)
+touch2 = GPIO( 9, GPIO.IN)
+touch3 = GPIO(11, GPIO.IN)
+touch4 = GPIO( 0, GPIO.IN)
+touch5 = GPIO( 5, GPIO.IN)
 touch1_last = 0
 touch2_last = 0
 touch3_last = 0
