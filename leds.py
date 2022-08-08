@@ -28,7 +28,7 @@ while True:
     pixels.fill((0, 0, 0))
 
     for i in range(num_pixels):
-        pixels[0] = (255, 255, 255)
+        pixels[i] = (255, 255, 255)
         time.sleep(0.01)
         
     time.sleep(3)
