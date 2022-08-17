@@ -2,8 +2,19 @@ import time
 import board
 import neopixel
 from gpiozero import Button
+import pyttsx3
 
 # Setup
+
+# sudo apt-get install espeak
+# pip3 install pyttsx3
+
+tts = pyttsx3.init()
+tts.setProperty("voice", "brazil")
+tts.setProperty("rate", 120)
+tts.runAndWait()
+tts.say("teste")
+tts.runAndWait()
 
 num_pixels = 510
 
