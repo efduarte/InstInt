@@ -26,12 +26,15 @@ hdmi_force_hotplug=1
 hdmi_force_edid_audio=1
 ```
 
-### 1.3 Instalar a Biblioteca Neopixel e Dependências
+### 1.3 Instalar a Biblioteca Neopixel e Outras Dependências
 
 Os seguintes comandos devem ser executados no terminal do Raspberry OS:
 
 ```
-sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel
+sudo apt-get install espeak
+```
+```
+sudo pip3 install pyttsx3 rpi_ws281x adafruit-circuitpython-neopixel adafruit-circuitpython-led-animation
 ```
 ```
 sudo python3 -m pip install --force-reinstall adafruit-blinka
@@ -56,3 +59,4 @@ sudo thonny
 * [Tutorial sobre Multitasking com Python no Raspberry Pi](https://learn.adafruit.com/cooperative-multitasking-in-circuitpython-with-asyncio)
 * [Tutorial sobre Neopixels no Raspberry Pi](https://learn.adafruit.com/neopixels-on-raspberry-pi)
 * [Informações técnicas sobre GPIO no Raspberry Pi](https://www.raspberrypi.com/documentation/computers/os.html#gpio-and-the-40-pin-header)
+* [Tutorial sobre Animações com Neopixels](https://learn.adafruit.com/circuitpython-led-animations/)
