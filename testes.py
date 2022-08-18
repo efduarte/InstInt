@@ -7,6 +7,7 @@
 import time
 import board
 import neopixel
+from adafruit_led_animation.animation.rainbow import Rainbow
 from gpiozero import Button, MotionSensor, Motor
 import pyttsx3
 
