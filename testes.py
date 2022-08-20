@@ -38,11 +38,19 @@ pixels = neopixel.NeoPixel(
 )
 
 # Toque
-toque_fita_1 = Button(10)
-toque_fita_2 = Button(9)
-toque_fita_3 = Button(11)
-toque_fita_4 = Button(0)
-toque_fita_5 = Button(5)
+# toque_fita_1 = Button(10)
+# toque_fita_2 = Button(9)
+# toque_fita_3 = Button(11)
+# toque_fita_4 = Button(0)
+# toque_fita_5 = Button(5)
+
+# Mais prático, testar
+toque_fita = []
+toque_fita[1] = Button(10)
+toque_fita[2] = Button(9)
+toque_fita[3] = Button(11)
+toque_fita[4] = Button(0)
+toque_fita[5] = Button(5)
 
 # Presença
 presenca_ir_1 = MotionSensor(8)
@@ -95,18 +103,19 @@ def testar_leds():
 ###############################################################################
 
 
-def testar_toque():
-    comunicar("Toque na Fita 1")
-    toque_fita_1.wait_for_press()
-    pixels[0:89] = (255, 255, 255) * 90
-    toque_fita_1.wait_for_release()
-    pixels[0:89] = (0, 0, 0) * 90
-    comunicar("Toque novamente na Fita 1")
-    toque_fita_1.wait_for_press()
-    pixels[0:89] = (255, 255, 255) * 90
-    toque_fita_1.wait_for_release()
+def testar_toque(fita):
+    primeiro_led_fita = (fita - 1) * 90
+    ultimo_led_fita = primeiro_led_fita + 89
+    comunicar("Toque na Fita " + str(fita))
+    toque_fita[fita].wait_for_press()
+    pixels[primeiro_led_fita:ultimo_led_fita] = (255, 255, 255) * 90
+    toque_fita[fita].wait_for_release()
+    pixels[primeiro_led_fita:ultimo_led_fita] = (0, 0, 0) * 90
+    comunicar("Toque novamente na Fita " + str(fita))
+    toque_fita[fita].wait_for_press()
+    pixels[primeiro_led_fita:ultimo_led_fita] = (255, 255, 255) * 90
+    toque_fita[fita].wait_for_release()
     pixels.fill((0, 0, 0))
-    #TO-DO: Repetir para fitas 2-5
 
 ###############################################################################
 #                                                                             #
