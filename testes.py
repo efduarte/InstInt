@@ -25,7 +25,7 @@ tts.setProperty("rate", 120)
 
 def comunicar(mensagem):
     print(mensagem)
-    comunicar(mensagem)
+    tts.say(mensagem)
     tts.runAndWait()
 
 # Neopixels
@@ -93,8 +93,9 @@ def testar_leds():
     time.sleep(5)
     pixels.fill((0, 0, 0))
     comunicar("Animação de Arco-Íris")
-    rainbow = Rainbow(pixels, speed=0.1, period=5)
-    rainbow.animate()
+    rainbow = Rainbow(pixels, speed=0.1, period=1)
+    for i in range(8):
+        rainbow.animate()
 
 ###############################################################################
 #                                                                             #
