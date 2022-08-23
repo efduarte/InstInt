@@ -26,6 +26,8 @@ hdmi_force_hotplug=1
 hdmi_force_edid_audio=1
 ```
 
+[Configuração adicional.](https://forums.raspberrypi.com/viewtopic.php?p=913285)
+
 ### 1.3 Instalar a Biblioteca Neopixel e Outras Dependências
 
 Os seguintes comandos devem ser executados no terminal do Raspberry OS:
@@ -45,7 +47,7 @@ sudo python3 -m pip install --force-reinstall adafruit-blinka
 Os scripts em Python devem ser executados com privilégios de administrador (*root*) para que seja necessário utilizar a biblioteca Neopixel e controlar os LEDs RGB. Isso é possível por meio da execução direta de um script com o comando:
 
 ```
-sudo python3 script.py
+sudo python3 testes.py
 ```
 
 Ou por meio da execução da IDE [Thonny](https://thonny.org/) com privilégios de administrador:
