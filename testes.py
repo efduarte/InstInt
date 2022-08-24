@@ -25,8 +25,8 @@ tts.setProperty("rate", 120)
 
 def comunicar(mensagem):
     print(mensagem)
-    tts.say(mensagem)
-    tts.runAndWait()
+    #tts.say(mensagem)
+    #tts.runAndWait()
 
 intervalo = 1
 
@@ -84,7 +84,6 @@ def testar_leds():
     comunicar("Todos os LEDs Brancos, preenchidos um a um")
     for i in range(pixels_count):
         pixels[i] = (255, 255, 255)
-        time.sleep(0.01)
     time.sleep(intervalo)
     pixels.fill((0, 0, 0))
     comunicar("Animação de Arco-Íris")
