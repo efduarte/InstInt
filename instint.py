@@ -198,14 +198,14 @@ fim_abertura.when_pressed = parar_abertura
 fim_fechamento.when_pressed = parar_fechamento
 
 
-def girar_frente():
+def girar_direita():
     log_data("Girando no sentido horário")
     motor_rotacao.forward(speed=0.5)
 
 
-def girar_tras():
+def girar_esquerda():
     log_data("Girando no sentido anti-horário")
-    motor_rotacao.forward(speed=0.5)
+    motor_rotacao.backward(speed=0.5)
 
 
 def parar_giro():
@@ -220,8 +220,8 @@ def parar_giro():
 
 while True:
     abrir()
-    girar_frente()
+    girar_direita()
     time.sleep(5)
     fechar()
-    girar_tras()
+    girar_esquerda()
     time.sleep(5)
