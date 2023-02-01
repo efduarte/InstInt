@@ -59,8 +59,6 @@ def log_data(event):
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow([now, event])
 
-log_data(["Timestamp", "Evento"])
-
 ###############################################################################
 #                                                                             #
 # Comportamento Fitas                                                         #
