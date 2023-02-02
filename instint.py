@@ -17,34 +17,46 @@ from datetime import datetime
 #                                                                             #
 ###############################################################################
 
+prototipo = True
+
 # Neopixels
-# pixels_count = 510
-pixels_count = 10
+if prototipo is True:
+    pixels_count = 10
+    pixels_count_fita = 2
+    pixels_count_matriz = 0
+
+else:
+    pixels_count = 510  # confirmar
+    pixels_count_fita = 90  # confirmar
+    pixels_count_matriz = 256
+
 pixels = neopixel.NeoPixel(
     board.D12,
     pixels_count,
     auto_write=True,
     pixel_order=neopixel.GRB
 )
+
 pixels.fill((0, 0, 0))
 
 # Toque
-toque_fita = [0] * 6
-toque_fita[1] = Button(10, pull_up=False)
-toque_fita[2] = Button(9, pull_up=False)
-toque_fita[3] = Button(11, pull_up=False)
-toque_fita[4] = Button(0, pull_up=False)
-toque_fita[5] = Button(5, pull_up=False)
+toque_fita_1 = Button(10, pull_up=False)
+toque_fita_2 = Button(9, pull_up=False)
+toque_fita_3 = Button(11, pull_up=False)
+toque_fita_4 = Button(0, pull_up=False)
+toque_fita_5 = Button(5, pull_up=False)
 
 # Presença
 presenca_ir_1 = MotionSensor(8)
 presenca_ir_2 = MotionSensor(7)
 presenca_ir_3 = MotionSensor(1)
-presenca_microondas = MotionSensor(23)  # TO-DO: testar compatibilidade
+presenca_microondas = MotionSensor(23)
 
 # Movimento
-motor_abre_fecha = Motor(21, 20)
+motor_vertical = Motor(21, 20)
+velocidade_vertical = 1  # confirmar
 motor_rotacao = Motor(16, 26)
+velocidade_rotacao = 0.5  # confirmar
 fim_abertura = Button(24, pull_up=False)
 fim_fechamento = Button(25, pull_up=False)
 
@@ -68,39 +80,39 @@ def log_data(event):
 
 def fita_tocada_1():
     log_data("Toque na Fita 1")
-    for i in range(2):
-        pixels[i] = ((255, 255, 0))
+    for i in range(pixels_count_fita):
+        pixels[pixels_count_matriz + i] = ((255, 255, 0))
 
 
 def fita_tocada_2():
     log_data("Toque na Fita 2")
-    for i in range(2):
-        pixels[i + 2] = ((255, 0, 255))
+    for i in range(pixels_count_fita):
+        pixels[pixels_count_matriz + i + pixels_count_fita] = ((255, 0, 255))
 
 
 def fita_tocada_3():
     log_data("Toque na Fita 3")
-    for i in range(2):
-        pixels[i + 4] = ((0, 255, 255))
+    for i in range(pixels_count_fita):
+        pixels[pixels_count_matriz + i + pixels_count_fita * 2] = ((0, 255, 255))
 
 
 def fita_tocada_4():
     log_data("Toque na Fita 4")
-    for i in range(2):
-        pixels[i + 6] = ((0, 255, 0))
+    for i in range(pixels_count_fita):
+        pixels[pixels_count_matriz + i + pixels_count_fita * 3] = ((0, 255, 0))
 
 
 def fita_tocada_5():
     log_data("Toque na Fita 5")
-    for i in range(2):
-        pixels[i + 8] = ((255, 0, 0))
+    for i in range(pixels_count_fita):
+        pixels[pixels_count_matriz + i + pixels_count_fita * 4] = ((255, 0, 0))
 
 
-toque_fita[1].when_pressed = fita_tocada_1
-toque_fita[2].when_pressed = fita_tocada_2
-toque_fita[3].when_pressed = fita_tocada_3
-toque_fita[4].when_pressed = fita_tocada_4
-toque_fita[5].when_pressed = fita_tocada_5
+toque_fita_1.when_pressed = fita_tocada_1
+toque_fita_2.when_pressed = fita_tocada_2
+toque_fita_3.when_pressed = fita_tocada_3
+toque_fita_4.when_pressed = fita_tocada_4
+toque_fita_5.when_pressed = fita_tocada_5
 
 
 def fita_solta_1():
@@ -133,11 +145,11 @@ def fita_solta_5():
         pixels[i + 8] = ((0, 0, 0))
 
 
-toque_fita[1].when_released = fita_solta_1
-toque_fita[2].when_released = fita_solta_2
-toque_fita[3].when_released = fita_solta_3
-toque_fita[4].when_released = fita_solta_4
-toque_fita[5].when_released = fita_solta_5
+toque_fita_1.when_released = fita_solta_1
+toque_fita_2.when_released = fita_solta_2
+toque_fita_3.when_released = fita_solta_3
+toque_fita_4.when_released = fita_solta_4
+toque_fita_5.when_released = fita_solta_5
 
 ###############################################################################
 #                                                                             #
@@ -173,39 +185,39 @@ presenca_microondas.when_motion = presenca_detectada_microondas
 ###############################################################################
 
 
-def abrir():
+def abrir(velocidade=velocidade_vertical):
     if fim_abertura.is_pressed is False:
         log_data("Abrindo")
-        motor_abre_fecha.forward(speed=1)
+        motor_vertical.forward(speed=velocidade)
 
 
-def fechar():
+def fechar(velocidade=velocidade_vertical):
     if fim_fechamento.is_pressed is False:
         log_data("Fechando")
-        motor_abre_fecha.backward(speed=1)
+        motor_vertical.backward(speed=velocidade)
 
 
 def parar_abertura():
     log_data("Parando abertura")
-    motor_abre_fecha.stop()
+    motor_vertical.stop()
 
 
 def parar_fechamento():
     log_data("Parando fechamento")
-    motor_abre_fecha.stop()
+    motor_vertical.stop()
 
 fim_abertura.when_pressed = parar_abertura
 fim_fechamento.when_pressed = parar_fechamento
 
 
-def girar_direita():
+def girar_direita(velocidade=velocidade_rotacao):
     log_data("Girando no sentido horário")
-    motor_rotacao.forward(speed=0.5)
+    motor_rotacao.forward(speed=velocidade)
 
 
-def girar_esquerda():
+def girar_esquerda(velocidade=velocidade_rotacao):
     log_data("Girando no sentido anti-horário")
-    motor_rotacao.backward(speed=0.5)
+    motor_rotacao.backward(speed=velocidade)
 
 
 def parar_giro():
@@ -222,6 +234,7 @@ while True:
     abrir()
     girar_direita()
     time.sleep(5)
+
     fechar()
     girar_esquerda()
     time.sleep(5)
