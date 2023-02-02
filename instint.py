@@ -26,8 +26,8 @@ if prototipo is True:
     pixels_count_matriz = 0
 
 else:
-    pixels_count = 510  # confirmar
-    pixels_count_fita = 90  # confirmar
+    pixels_count = 766
+    pixels_count_fita = 90
     pixels_count_matriz = 256
 
 pixels = neopixel.NeoPixel(
