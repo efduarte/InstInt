@@ -39,7 +39,7 @@ pixels = neopixel.NeoPixel(
     pixel_order=neopixel.GRB
 )
 
-pixels.fill((0, 0, 0))
+pixels.fill((200, 200, 200))
 
 # Toque
 toque_fita_1 = Button(10, pull_up=False)
@@ -92,32 +92,27 @@ signal.signal(signal.SIGINT, signal_handler)
 
 def fita_tocada_1():
     log_data("Toque na Fita 1")
-    for i in range(pixels_count_fita):
-        pixels[pixels_count_matriz + i] = ((255, 255, 0))
+    pixels.fill((255, 255, 0))
 
 
 def fita_tocada_2():
     log_data("Toque na Fita 2")
-    for i in range(pixels_count_fita):
-        pixels[pixels_count_matriz + i + pixels_count_fita] = ((255, 0, 255))
+    pixels.fill((255, 0, 255))
 
 
 def fita_tocada_3():
     log_data("Toque na Fita 3")
-    for i in range(pixels_count_fita):
-        pixels[pixels_count_matriz + i + pixels_count_fita * 2] = ((0, 255, 255))
+    pixels.fill((0, 255, 255))
 
 
 def fita_tocada_4():
     log_data("Toque na Fita 4")
-    for i in range(pixels_count_fita):
-        pixels[pixels_count_matriz + i + pixels_count_fita * 3] = ((0, 255, 0))
+    pixels.fill((0, 255, 0))
 
 
 def fita_tocada_5():
     log_data("Toque na Fita 5")
-    for i in range(pixels_count_fita):
-        pixels[pixels_count_matriz + i + pixels_count_fita * 4] = ((255, 0, 0))
+    pixels.fill((255, 0, 0))
 
 
 toque_fita_1.when_pressed = fita_tocada_1
@@ -129,32 +124,32 @@ toque_fita_5.when_pressed = fita_tocada_5
 
 def fita_solta_1():
     log_data("Fim do toque na Fita 1")
-    for i in range(2):
-        pixels[i] = ((0, 0, 0))
+    pixels.fill((0, 0, 0))
+    pixels.fill((200, 200, 200))
 
 
 def fita_solta_2():
     log_data("Fim do toque na Fita 2")
-    for i in range(2):
-        pixels[i + 2] = ((0, 0, 0))
+    pixels.fill((0, 0, 0))
+    pixels.fill((200, 200, 200))
 
 
 def fita_solta_3():
     log_data("Fim do toque na Fita 3")
-    for i in range(2):
-        pixels[i + 4] = ((0, 0, 0))
+    pixels.fill((0, 0, 0))
+    pixels.fill((200, 200, 200))
 
 
 def fita_solta_4():
     log_data("Fim do toque na Fita 4")
-    for i in range(2):
-        pixels[i + 6] = ((0, 0, 0))
+    pixels.fill((0, 0, 0))
+    pixels.fill((200, 200, 200))
 
 
 def fita_solta_5():
     log_data("Fim do toque na Fita 5")
-    for i in range(2):
-        pixels[i + 8] = ((0, 0, 0))
+    pixels.fill((0, 0, 0))
+    pixels.fill((200, 200, 200))
 
 
 toque_fita_1.when_released = fita_solta_1
@@ -244,9 +239,17 @@ def parar_giro():
 
 while True:
     abrir()
+    time.sleep(10)
+
     girar_direita()
-    time.sleep(5)
+    time.sleep(15)
+    parar_giro()
+    time.sleep(1)
+
+    girar_esquerda()
+    time.sleep(15)
+    parar_giro()
+    time.sleep(1)
 
     fechar()
-    girar_esquerda()
-    time.sleep(5)
+    time.sleep(10)
