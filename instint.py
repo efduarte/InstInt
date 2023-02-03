@@ -10,6 +10,8 @@ import neopixel
 from gpiozero import Button, MotionSensor, Motor
 import csv
 from datetime import datetime
+import signal
+import sys
 
 ###############################################################################
 #                                                                             #
@@ -70,6 +72,16 @@ def log_data(event):
     with open(log_filename, 'a', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow([now, event])
+
+
+def signal_handler(signal, frame):
+    log_data("Encerrando a aplicação")
+    pixels.fill((0, 0, 0))
+    motor_vertical.stop()
+    motor_rotacao.stop()
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
 
 ###############################################################################
 #                                                                             #
