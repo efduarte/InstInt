@@ -39,7 +39,22 @@ pixels = neopixel.NeoPixel(
     pixel_order=neopixel.GRB
 )
 
-BRANCO = (200, 200, 200)  # brilho reduzido
+inicio_fita_1 = pixels_count_matriz
+fim_fita_1 = inicio_fita_1 + pixels_count_fita
+
+inicio_fita_2 = pixels_count_matriz + pixels_count_fita
+fim_fita_2 = inicio_fita_2 + pixels_count_fita
+
+inicio_fita_3 = pixels_count_matriz + pixels_count_fita * 2
+fim_fita_3 = inicio_fita_3 + pixels_count_fita
+
+inicio_fita_4 = pixels_count_matriz + pixels_count_fita * 3
+fim_fita_4 = inicio_fita_4 + pixels_count_fita
+
+inicio_fita_5 = pixels_count_matriz + pixels_count_fita * 4
+fim_fita_5 = inicio_fita_5 + pixels_count_fita
+
+BRANCO = (160, 160, 160)  # brilho reduzido
 PRETO = (0, 0, 0)  # desligado
 VERMELHO = (255, 0, 0)
 AMARELO = (255, 150, 0)
@@ -101,27 +116,27 @@ signal.signal(signal.SIGINT, signal_handler)
 
 def fita_tocada_1():
     log_data("Toque na Fita 1")
-    pixels[0:pixels_count_fita] = [VERMELHO] * pixels_count_fita
+    pixels[inicio_fita_1:fim_fita_1] = [VERMELHO] * pixels_count_fita
 
 
 def fita_tocada_2():
     log_data("Toque na Fita 2")
-    pixels.fill(AMARELO)
+    pixels[inicio_fita_2:fim_fita_2] = [AMARELO] * pixels_count_fita
 
 
 def fita_tocada_3():
     log_data("Toque na Fita 3")
-    pixels.fill(ROXO)
+    pixels[inicio_fita_3:fim_fita_3] = [ROXO] * pixels_count_fita
 
 
 def fita_tocada_4():
     log_data("Toque na Fita 4")
-    pixels.fill(CIANO)
+    pixels[inicio_fita_4:fim_fita_4] = [CIANO] * pixels_count_fita
 
 
 def fita_tocada_5():
     log_data("Toque na Fita 5")
-    pixels.fill(VERDE)
+    pixels[inicio_fita_5:fim_fita_5] = [VERDE] * pixels_count_fita
 
 
 toque_fita_1.when_pressed = fita_tocada_1
@@ -133,27 +148,27 @@ toque_fita_5.when_pressed = fita_tocada_5
 
 def fita_solta_1():
     log_data("Fim do toque na Fita 1")
-    pixels[0:pixels_count_fita] = [BRANCO] * pixels_count_fita
+    pixels[inicio_fita_1:fim_fita_1] = [BRANCO] * pixels_count_fita
 
 
 def fita_solta_2():
     log_data("Fim do toque na Fita 2")
-    pixels.fill(BRANCO)
+    pixels[inicio_fita_2:fim_fita_2] = [BRANCO] * pixels_count_fita
 
 
 def fita_solta_3():
     log_data("Fim do toque na Fita 3")
-    pixels.fill(BRANCO)
+    pixels[inicio_fita_3:fim_fita_3] = [BRANCO] * pixels_count_fita
 
 
 def fita_solta_4():
     log_data("Fim do toque na Fita 4")
-    pixels.fill(BRANCO)
+    pixels[inicio_fita_4:fim_fita_4] = [BRANCO] * pixels_count_fita
 
 
 def fita_solta_5():
     log_data("Fim do toque na Fita 5")
-    pixels.fill(BRANCO)
+    pixels[inicio_fita_5:fim_fita_5] = [BRANCO] * pixels_count_fita
 
 
 toque_fita_1.when_released = fita_solta_1
