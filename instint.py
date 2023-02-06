@@ -24,8 +24,8 @@ prototipo = True
 # Neopixels
 if prototipo is True:
     pixels_count = 10
-    pixels_count_fita = 2
-    pixels_count_matriz = 0
+    pixels_count_fita = 1
+    pixels_count_matriz = 5
 
 else:
     pixels_count = 766
@@ -57,11 +57,21 @@ fim_fita_5 = inicio_fita_5 + pixels_count_fita
 BRANCO = (160, 160, 160)  # brilho reduzido
 PRETO = (0, 0, 0)  # desligado
 VERMELHO = (255, 0, 0)
-AMARELO = (255, 150, 0)
+CARMESIM = (220, 20, 60)
+PINK = (255, 192, 203)
+PINKPROFUNDO = (255, 20, 147)
+LARANJA = (255, 165, 0)
+SALMAO = (255, 160, 122)
+AMARELO = (255, 255, 0)
+DOURADO = (255, 215, 0)
+ROXO = (128, 0, 128)
+MAGENTA = (255, 0, 255)
 VERDE = (0, 255, 0)
-CIANO = (0, 255, 255)
+CERCETA = (0, 128, 128)
 AZUL = (0, 0, 255)
-ROXO = (180, 0, 255)
+CIANO = (0, 255, 255)
+MARROM = (165, 42, 42)
+CHOCOLATE = (210, 105, 30)
 
 pixels.fill(BRANCO)
 
@@ -116,17 +126,17 @@ signal.signal(signal.SIGINT, signal_handler)
 
 def fita_tocada_1():
     log_data("Toque na Fita 1")
-    pixels[inicio_fita_1:fim_fita_1] = [VERMELHO] * pixels_count_fita
+    pixels[inicio_fita_1:fim_fita_1] = [CARMESIM] * pixels_count_fita
 
 
 def fita_tocada_2():
     log_data("Toque na Fita 2")
-    pixels[inicio_fita_2:fim_fita_2] = [AMARELO] * pixels_count_fita
+    pixels[inicio_fita_2:fim_fita_2] = [DOURADO] * pixels_count_fita
 
 
 def fita_tocada_3():
     log_data("Toque na Fita 3")
-    pixels[inicio_fita_3:fim_fita_3] = [ROXO] * pixels_count_fita
+    pixels[inicio_fita_3:fim_fita_3] = [MAGENTA] * pixels_count_fita
 
 
 def fita_tocada_4():
@@ -136,7 +146,7 @@ def fita_tocada_4():
 
 def fita_tocada_5():
     log_data("Toque na Fita 5")
-    pixels[inicio_fita_5:fim_fita_5] = [VERDE] * pixels_count_fita
+    pixels[inicio_fita_5:fim_fita_5] = [CHOCOLATE] * pixels_count_fita
 
 
 toque_fita_1.when_pressed = fita_tocada_1
@@ -198,6 +208,10 @@ def presenca_detectada_3():
 
 def presenca_detectada_microondas():
     log_data("Presença no Sensor Microondas")
+
+
+def presenca_detectada():
+    pixels[0:pixels_count_matriz] = [DOURADO] * pixels_count_matriz
 
 presenca_ir_1.when_motion = presenca_detectada_1
 presenca_ir_2.when_motion = presenca_detectada_2
@@ -272,3 +286,5 @@ while True:
 
     fechar()
     time.sleep(10)
+
+    pixels[0:pixels_count_matriz] = [BRANCO] * pixels_count_matriz
