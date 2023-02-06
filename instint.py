@@ -196,18 +196,22 @@ toque_fita_5.when_released = fita_solta_5
 
 def presenca_detectada_1():
     log_data("Presença no Sensor IR 1")
+    presenca_detectada()
 
 
 def presenca_detectada_2():
     log_data("Presença no Sensor IR 2")
+    presenca_detectada()
 
 
 def presenca_detectada_3():
     log_data("Presença no Sensor IR 3")
+    presenca_detectada()
 
 
 def presenca_detectada_microondas():
     log_data("Presença no Sensor Microondas")
+    presenca_detectada()
 
 
 def presenca_detectada():
