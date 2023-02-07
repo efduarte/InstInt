@@ -222,7 +222,6 @@ def presenca_detectada_microondas():
 
 
 def presenca_detectada():
-    pixels[0:pixels_count_matriz] = [DOURADO] * pixels_count_matriz
     estimulo()
 
 presenca_ir_1.when_motion = presenca_detectada_1
@@ -305,7 +304,8 @@ def estimulo():
 
     elif estado == "direita_2":
         log_data("...")
-        # o que fazer?
+        # o que fazer? Matriz?
+        # pixels[0:pixels_count_matriz] = [BRANCO] * pixels_count_matriz
         return
 
     elif estado == "esquerda_1":
@@ -378,21 +378,3 @@ while True:
     time.sleep(10)
     if teve_estimulo is False:
         falta_de_estimulo()
-
-    # abrir()
-    # time.sleep(10)
-
-    # girar_direita()
-    # time.sleep(15)
-    # parar_giro()
-    # time.sleep(1)
-
-    # girar_esquerda()
-    # time.sleep(15)
-    # parar_giro()
-    # time.sleep(1)
-
-    # fechar()
-    # time.sleep(10)
-
-    # pixels[0:pixels_count_matriz] = [BRANCO] * pixels_count_matriz
