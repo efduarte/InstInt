@@ -286,72 +286,85 @@ estado = 'parado'
 
 
 def estimulo():
+    global teve_estimulo
+    global estado
     teve_estimulo = True
-    match estado:
-        case "parado":
-            log_data("Mudança de estado: de 'parado' para 'direita_1'")
-            abrir()
-            time.sleep(5)  # tempo para abrir, verificar
-            girar_direita(0.5)
-            estado = 'direita_1'
+    if estado == "parado":
+        log_data("Mudança de estado: de 'parado' para 'direita_1'")
+        abrir()
+        time.sleep(5)  # tempo para abrir, verificar
+        girar_direita(0.5)
+        estado = 'direita_1'
+        return
 
-        case "direita_1":
-            log_data("Mudança de estado: de 'direita_1' para 'direita_2'")
-            girar_direita(1)
-            estado = 'direita_2'
+    elif estado == "direita_1":
+        log_data("Mudança de estado: de 'direita_1' para 'direita_2'")
+        girar_direita(1)
+        estado = 'direita_2'
+        return
 
-        case "direita_2":
-            log_data("...")
-            # o que fazer?
+    elif estado == "direita_2":
+        log_data("...")
+        # o que fazer?
+        return
 
-        case "esquerda_1":
-            log_data("Mudança de estado: de 'esquerda_1' para 'esquerda_2'")
-            girar_esquerda(1)
-            estado = 'esquerda_2'
+    elif estado == "esquerda_1":
+        log_data("Mudança de estado: de 'esquerda_1' para 'esquerda_2'")
+        girar_esquerda(1)
+        estado = 'esquerda_2'
+        return
 
-        case "esquerda_2":
-            log_data("...")
-            # o que fazer?
+    elif estado == "esquerda_2":
+        log_data("...")
+        # o que fazer?
+        return
 
-        case _:
-            log_data("Mudança de estado: de #ERRO para 'parado'")
-            estado = 'parado'
-            parar_giro()
-            fechar()
+    else:
+        log_data("Mudança de estado: de #ERRO para 'parado'")
+        estado = 'parado'
+        parar_giro()
+        fechar()
+        return
 
 
 def falta_de_estimulo():
-    match estado:
-        case "parado":
-            log_data("Estado mantido em 'parado'")
+    global estado
+    if estado == "parado":
+        log_data("Estado mantido em 'parado'")
+        return
 
-        case "direita_1":
-            log_data("Mudança de estado: de 'direita_1' para 'parado'")
-            estado = 'parado'
-            parar_giro()
-            fechar()
+    elif estado == "direita_1":
+        log_data("Mudança de estado: de 'direita_1' para 'parado'")
+        estado = 'parado'
+        parar_giro()
+        fechar()
+        return
 
-        case "direita_2":
-            log_data("Mudança de estado: de 'direita_2' para 'esquerda_1'")
-            girar_esquerda(0.5)
-            estado = 'esquerda_1'
+    elif estado == "direita_2":
+        log_data("Mudança de estado: de 'direita_2' para 'esquerda_1'")
+        girar_esquerda(0.5)
+        estado = 'esquerda_1'
+        return
 
-        case "esquerda_1":
-            log_data("Mudança de estado: de 'esquerda_1' para 'parado'")
-            estado = 'parado'
-            parar_giro()
-            fechar()
+    elif estado == "esquerda_1":
+        log_data("Mudança de estado: de 'esquerda_1' para 'parado'")
+        estado = 'parado'
+        parar_giro()
+        fechar()
+        return
 
-        case "esquerda_2":
-            log_data("Mudança de estado: de 'esquerda_2' para 'direita_1'")
-            girar_direita(0.5)
-            estado = 'direita_1'
+    elif estado == "esquerda_2":
+        log_data("Mudança de estado: de 'esquerda_2' para 'direita_1'")
+        girar_direita(0.5)
+        estado = 'direita_1'
+        return
 
-        case _:
-            log_data("Mudança de estado: de #ERRO para 'parado'")
-            estado = 'parado'
-            parar_giro()
-            fechar()
+    else:
+        log_data("Mudança de estado: de #ERRO para 'parado'")
+        estado = 'parado'
+        parar_giro()
+        fechar()
+        return
 
 
 ###############################################################################
