@@ -20,7 +20,7 @@ import sys
 ###############################################################################
 
 prototipo = False
-if sys.argv[1] == "prototipo":
+if len(sys.argv) > 1:
     prototipo = True
 
 # Neopixels
