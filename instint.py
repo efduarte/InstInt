@@ -90,9 +90,9 @@ presenca_microondas = MotionSensor(23)
 
 # Movimento
 motor_vertical = Motor(21, 20)
-velocidade_vertical = 1  # confirmar
+velocidade_vertical = 1
 motor_rotacao = Motor(16, 26)
-velocidade_rotacao = 0.5  # confirmar
+velocidade_rotacao = 0.5
 fim_abertura = Button(24, pull_up=False)
 fim_fechamento = Button(25, pull_up=False)
 
@@ -130,31 +130,31 @@ signal.signal(signal.SIGINT, signal_handler)
 def fita_tocada_1():
     log_data("Toque na Fita 1")
     pixels[inicio_fita_1:fim_fita_1] = [CARMESIM] * pixels_count_fita
-    estimulo()
+    estimulo("toque")
 
 
 def fita_tocada_2():
     log_data("Toque na Fita 2")
     pixels[inicio_fita_2:fim_fita_2] = [DOURADO] * pixels_count_fita
-    estimulo()
+    estimulo("toque")
 
 
 def fita_tocada_3():
     log_data("Toque na Fita 3")
     pixels[inicio_fita_3:fim_fita_3] = [MAGENTA] * pixels_count_fita
-    estimulo()
+    estimulo("toque")
 
 
 def fita_tocada_4():
     log_data("Toque na Fita 4")
     pixels[inicio_fita_4:fim_fita_4] = [CIANO] * pixels_count_fita
-    estimulo()
+    estimulo("toque")
 
 
 def fita_tocada_5():
     log_data("Toque na Fita 5")
     pixels[inicio_fita_5:fim_fita_5] = [CHOCOLATE] * pixels_count_fita
-    estimulo()
+    estimulo("toque")
 
 
 toque_fita_1.when_pressed = fita_tocada_1
@@ -223,7 +223,7 @@ def presenca_detectada_microondas():
 
 
 def presenca_detectada():
-    estimulo()
+    estimulo("presenca")
 
 presenca_ir_1.when_motion = presenca_detectada_1
 presenca_ir_2.when_motion = presenca_detectada_2
@@ -291,10 +291,13 @@ def parar_giro():
 estado = 'parado'
 
 
-def estimulo():
+def estimulo(tipo):
     global teve_estimulo
     global estado
     teve_estimulo = True
+    if tipo == "presenca" and estado != "parado":
+        return
+
     if estado == "parado":
         log_data("Mudança de estado: de 'parado' para 'direita_1'")
         abrir()
@@ -380,7 +383,6 @@ def falta_de_estimulo():
 ###############################################################################
 
 fechar()
-time.sleep(10)
 pixels.fill(BRANCO)
 
 while True:
