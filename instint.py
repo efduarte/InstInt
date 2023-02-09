@@ -19,7 +19,9 @@ import sys
 #                                                                             #
 ###############################################################################
 
-prototipo = True
+prototipo = False
+if sys.argv[1] == "prototipo":
+    prototipo = True
 
 # Neopixels
 if prototipo is True:
@@ -73,8 +75,6 @@ CIANO = (0, 255, 255)
 MARROM = (165, 42, 42)
 CHOCOLATE = (210, 105, 30)
 
-pixels.fill(BRANCO)
-
 # Toque
 toque_fita_1 = Button(10, pull_up=False)
 toque_fita_2 = Button(9, pull_up=False)
@@ -110,6 +110,7 @@ def log_data(event):
         csvwriter.writerow([now, event])
 
 
+# Desligar motores e luzes ao encerrar o sistema
 def signal_handler(signal, frame):
     log_data("Encerrando a aplicação")
     pixels.fill(PRETO)
@@ -377,6 +378,10 @@ def falta_de_estimulo():
 # Loop                                                                        #
 #                                                                             #
 ###############################################################################
+
+fechar()
+time.sleep(10)
+pixels.fill(BRANCO)
 
 while True:
     teve_estimulo = False
