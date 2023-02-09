@@ -263,11 +263,17 @@ fim_fechamento.when_pressed = parar_fechamento
 
 def girar_direita(velocidade=velocidade_rotacao):
     log_data("Girando no sentido horário")
+    if motor_rotacao.value < 0:
+        parar_giro()
+        time.sleep(2)
     motor_rotacao.forward(speed=velocidade)
 
 
 def girar_esquerda(velocidade=velocidade_rotacao):
     log_data("Girando no sentido anti-horário")
+    if motor_rotacao.value > 0:
+        parar_giro()
+        time.sleep(2)
     motor_rotacao.backward(speed=velocidade)
 
 
@@ -291,7 +297,6 @@ def estimulo():
     if estado == "parado":
         log_data("Mudança de estado: de 'parado' para 'direita_1'")
         abrir()
-        time.sleep(5)  # tempo para abrir, verificar
         girar_direita(0.5)
         estado = 'direita_1'
         return
