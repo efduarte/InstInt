@@ -141,35 +141,35 @@ def fita_tocada_1():
     log_data("Toque na Fita 1")
     pixels[inicio_fita_1:fim_fita_1] = [CARMESIM] * pixels_count_fita
     estimulo("toque")
-    play(audio_file_1)
+    # play(audio_file_1)
 
 
 def fita_tocada_2():
     log_data("Toque na Fita 2")
     pixels[inicio_fita_2:fim_fita_2] = [DOURADO] * pixels_count_fita
     estimulo("toque")
-    play(audio_file_2)
+    # play(audio_file_2)
 
 
 def fita_tocada_3():
     log_data("Toque na Fita 3")
     pixels[inicio_fita_3:fim_fita_3] = [MAGENTA] * pixels_count_fita
     estimulo("toque")
-    play(audio_file_3)
+    # play(audio_file_3)
 
 
 def fita_tocada_4():
     log_data("Toque na Fita 4")
     pixels[inicio_fita_4:fim_fita_4] = [CIANO] * pixels_count_fita
     estimulo("toque")
-    play(audio_file_4)
+    # play(audio_file_4)
 
 
 def fita_tocada_5():
     log_data("Toque na Fita 5")
     pixels[inicio_fita_5:fim_fita_5] = [CHOCOLATE] * pixels_count_fita
     estimulo("toque")
-    play(audio_file_5)
+    # play(audio_file_5)
 
 
 toque_fita_1.when_pressed = fita_tocada_1
