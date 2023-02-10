@@ -59,6 +59,7 @@ inicio_fita_5 = pixels_count_matriz + pixels_count_fita * 4
 fim_fita_5 = inicio_fita_5 + pixels_count_fita
 
 BRANCO = (160, 160, 160)  # brilho reduzido
+SUPERBRANCO = (255, 255, 255)  # usar somente no 'caule' 
 PRETO = (0, 0, 0)  # desligado
 VERMELHO = (255, 0, 0)
 CARMESIM = (220, 20, 60)
@@ -94,7 +95,8 @@ presenca_microondas = MotionSensor(23)
 motor_vertical = Motor(21, 20)
 velocidade_vertical = 1
 motor_rotacao = Motor(16, 26)
-velocidade_rotacao = 0.5
+velocidade_rotacao_1 = 0.5
+velocidade_rotacao_2 = 1.0
 fim_abertura = Button(24, pull_up=False)
 fim_fechamento = Button(25, pull_up=False)
 
@@ -277,19 +279,13 @@ fim_abertura.when_pressed = parar_abertura
 fim_fechamento.when_pressed = parar_fechamento
 
 
-def girar_direita(velocidade=velocidade_rotacao):
+def girar_direita(velocidade=velocidade_rotacao_1):
     log_data("Girando no sentido horário")
-    if motor_rotacao.value < 0:
-        parar_giro()
-        time.sleep(2)
     motor_rotacao.forward(speed=velocidade)
 
 
-def girar_esquerda(velocidade=velocidade_rotacao):
+def girar_esquerda(velocidade=velocidade_rotacao_1):
     log_data("Girando no sentido anti-horário")
-    if motor_rotacao.value > 0:
-        parar_giro()
-        time.sleep(2)
     motor_rotacao.backward(speed=velocidade)
 
 
@@ -307,40 +303,39 @@ estado = 'parado'
 
 
 def estimulo(tipo):
-    global teve_estimulo
+    global ultimo_estimulo
     global estado
-    teve_estimulo = True
+    
     if tipo == "presenca" and estado != "parado":
         return
+
+    ultimo_estimulo = 0
 
     if estado == "parado":
         log_data("Mudança de estado: de 'parado' para 'direita_1'")
         abrir()
-        girar_direita(0.5)
+        girar_direita(velocidade_rotacao_1)
         estado = 'direita_1'
         return
 
     elif estado == "direita_1":
         log_data("Mudança de estado: de 'direita_1' para 'direita_2'")
-        girar_direita(1)
+        girar_direita(velocidade_rotacao_2)
         estado = 'direita_2'
         return
 
     elif estado == "direita_2":
-        log_data("...")
-        # o que fazer? Matriz?
-        # pixels[0:pixels_count_matriz] = [BRANCO] * pixels_count_matriz
+        log_data("Estado mantido em 'direita_2'")
         return
 
     elif estado == "esquerda_1":
         log_data("Mudança de estado: de 'esquerda_1' para 'esquerda_2'")
-        girar_esquerda(1)
+        girar_esquerda(velocidade_rotacao_2)
         estado = 'esquerda_2'
         return
 
     elif estado == "esquerda_2":
-        log_data("...")
-        # o que fazer?
+        log_data("Estado mantido em 'esquerda_2'")
         return
 
     else:
@@ -366,7 +361,7 @@ def falta_de_estimulo():
 
     elif estado == "direita_2":
         log_data("Mudança de estado: de 'direita_2' para 'esquerda_1'")
-        girar_esquerda(0.5)
+        girar_esquerda(velocidade_rotacao_1)
         estado = 'esquerda_1'
         return
 
@@ -379,7 +374,7 @@ def falta_de_estimulo():
 
     elif estado == "esquerda_2":
         log_data("Mudança de estado: de 'esquerda_2' para 'direita_1'")
-        girar_direita(0.5)
+        girar_direita(velocidade_rotacao_1)
         estado = 'direita_1'
         return
 
@@ -399,9 +394,11 @@ def falta_de_estimulo():
 
 fechar()
 pixels.fill(BRANCO)
+ultimo_estimulo = 0
 
 while True:
-    teve_estimulo = False
-    time.sleep(10)
-    if teve_estimulo is False:
+    ultimo_estimulo += 1
+    time.sleep(1)
+    if ultimo_estimulo >= 15:
         falta_de_estimulo()
+        ultimo_estimulo = 0
