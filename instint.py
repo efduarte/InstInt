@@ -139,7 +139,7 @@ audio_file_5 = AudioSegment.from_file("audio/s5-clav.wav")
 def play_threaded(filename, repeat=False, volume=1.0):
     def play_audio():
         while True:
-            sound = AudioSegment.from_file(filename, format="wav")
+            sound = AudioSegment.from_wav(filename)
             sound = sound.apply_gain(volume)
             play(sound)
             if not repeat:
