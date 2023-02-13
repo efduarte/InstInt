@@ -14,6 +14,7 @@ import signal
 import sys
 from pydub import AudioSegment
 from pydub.playback import play
+from threading import Thread
 
 ###############################################################################
 #                                                                             #
@@ -126,13 +127,26 @@ def signal_handler(signal, frame):
 
 signal.signal(signal.SIGINT, signal_handler)
 
-# arquivos de audio
+# Arquivos de Audio e Play com Threads
 audio_file_base = AudioSegment.from_file("audio/feliz-base.wav")
 audio_file_1 = AudioSegment.from_file("audio/s1-orgao.wav")
 audio_file_2 = AudioSegment.from_file("audio/s2-orgao.wav")
 audio_file_3 = AudioSegment.from_file("audio/s3-flauta.wav")
 audio_file_4 = AudioSegment.from_file("audio/s4-flauta.wav")
 audio_file_5 = AudioSegment.from_file("audio/s5-clav.wav")
+
+
+def play_threaded(filename, repeat=False, volume=1.0):
+    def play_audio():
+        while True:
+            sound = AudioSegment.from_file(filename, format="wav")
+            sound = sound.apply_gain(volume)
+            play(sound)
+            if not repeat:
+                break
+
+    thread = Thread(target=play_audio)
+    thread.start()
 
 ###############################################################################
 #                                                                             #
@@ -145,35 +159,35 @@ def fita_tocada_1():
     log_data("Toque na Fita 1")
     pixels[inicio_fita_1:fim_fita_1] = [CARMESIM] * pixels_count_fita
     estimulo("toque")
-    play(audio_file_1)
+    play_threaded(audio_file_1)
 
 
 def fita_tocada_2():
     log_data("Toque na Fita 2")
     pixels[inicio_fita_2:fim_fita_2] = [DOURADO] * pixels_count_fita
     estimulo("toque")
-    play(audio_file_2)
+    play_threaded(audio_file_2)
 
 
 def fita_tocada_3():
     log_data("Toque na Fita 3")
     pixels[inicio_fita_3:fim_fita_3] = [MAGENTA] * pixels_count_fita
     estimulo("toque")
-    play(audio_file_3)
+    play_threaded(audio_file_3)
 
 
 def fita_tocada_4():
     log_data("Toque na Fita 4")
     pixels[inicio_fita_4:fim_fita_4] = [CIANO] * pixels_count_fita
     estimulo("toque")
-    play(audio_file_4)
+    play_threaded(audio_file_4)
 
 
 def fita_tocada_5():
     log_data("Toque na Fita 5")
     pixels[inicio_fita_5:fim_fita_5] = [CHOCOLATE] * pixels_count_fita
     estimulo("toque")
-    play(audio_file_5)
+    play_threaded(audio_file_5)
 
 
 toque_fita_1.when_pressed = fita_tocada_1
@@ -397,6 +411,7 @@ def falta_de_estimulo():
 fechar()
 pixels.fill(BRANCO)
 ultimo_estimulo = 0
+play_threaded(audio_file_base, repeat=True, volume=0.3)
 
 while True:
     ultimo_estimulo += 1
