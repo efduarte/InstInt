@@ -21,9 +21,23 @@ from pydub.playback import play
 #                                                                             #
 ###############################################################################
 
-prototipo = False
+# Logs de Sistema e Argumentos
+agora = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+log_filename = "log_{}.csv".format(agora)
+
+
+prototipo = True
 if len(sys.argv) > 1:
-    prototipo = True
+    prototipo = False
+    log_filename = "log_" + sys.argv[1] + "_{}.csv".format(agora)
+
+
+def log_data(event):
+    print(event)
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open(log_filename, 'a', newline='') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow([now, event])
 
 # Neopixels
 if prototipo is True:
@@ -59,7 +73,7 @@ inicio_fita_5 = pixels_count_matriz + pixels_count_fita * 4
 fim_fita_5 = inicio_fita_5 + pixels_count_fita
 
 BRANCO = (160, 160, 160)  # brilho reduzido
-SUPERBRANCO = (255, 255, 255)  # usar somente no 'caule' 
+SUPERBRANCO = (255, 255, 255)  # usar somente no 'caule'
 PRETO = (0, 0, 0)  # desligado
 VERMELHO = (255, 0, 0)
 CARMESIM = (220, 20, 60)
@@ -99,19 +113,6 @@ velocidade_rotacao_1 = 0.5
 velocidade_rotacao_2 = 1.0
 fim_abertura = Button(24, pull_up=False)
 fim_fechamento = Button(25, pull_up=False)
-
-
-# Logs de Sistema
-agora = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-log_filename = "log_{}.csv".format(agora)
-
-
-def log_data(event):
-    print(event)
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    with open(log_filename, 'a', newline='') as csvfile:
-        csvwriter = csv.writer(csvfile)
-        csvwriter.writerow([now, event])
 
 
 # Desligar motores e luzes ao encerrar o sistema
@@ -305,7 +306,7 @@ estado = 'parado'
 def estimulo(tipo):
     global ultimo_estimulo
     global estado
-    
+
     if tipo == "presenca" and estado != "parado":
         return
 
