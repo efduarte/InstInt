@@ -128,18 +128,18 @@ def signal_handler(signal, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 # Arquivos de Audio e Play com Threads
-audio_file_base = AudioSegment.from_file("audio/feliz-base.wav")
-audio_file_1 = AudioSegment.from_file("audio/s1-orgao.wav")
-audio_file_2 = AudioSegment.from_file("audio/s2-orgao.wav")
-audio_file_3 = AudioSegment.from_file("audio/s3-flauta.wav")
-audio_file_4 = AudioSegment.from_file("audio/s4-flauta.wav")
-audio_file_5 = AudioSegment.from_file("audio/s5-clav.wav")
+audio_file_base = "audio/feliz-base.wav"
+audio_file_1    = "audio/s1-orgao.wav"
+audio_file_2    = "audio/s2-orgao.wav"
+audio_file_3    = "audio/s3-flauta.wav"
+audio_file_4    = "audio/s4-flauta.wav"
+audio_file_5    = "audio/s5-clav.wav"
 
 
 def play_threaded(filename, repeat=False, volume=1.0):
     def play_audio():
         while True:
-            sound = AudioSegment.from_wav(filename)
+            sound = AudioSegment.from_file(filename, format="wav")
             sound = sound.apply_gain(volume)
             play(sound)
             if not repeat:
