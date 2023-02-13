@@ -26,10 +26,11 @@ agora = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 log_filename = "log_{}.csv".format(agora)
 
 
-prototipo = True
+prototipo = False
 if len(sys.argv) > 1:
-    prototipo = False
     log_filename = "log_" + sys.argv[1] + "_{}.csv".format(agora)
+    if sys.argv[1] == "prototipo":
+        prototipo = True
 
 
 def log_data(event):
