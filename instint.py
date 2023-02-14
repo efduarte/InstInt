@@ -27,7 +27,7 @@ import argparse
 parser = argparse.ArgumentParser(prog='InstInt')
 parser.add_argument('-p', '--prototipo', action='store_true')
 parser.add_argument('-l', '--logname', default='log_')
-parser.add_argument('-s', '--som', default='instint', choices=['instint', 'piano'])
+parser.add_argument('-s', '--som', default='instint')  # instint ou piano
 args = parser.parse_args()
 
 # Logs de Sistema e Argumentos
