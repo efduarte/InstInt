@@ -145,11 +145,11 @@ audio_file_4 = "audio/" + args.som + "/4.wav"
 audio_file_5 = "audio/" + args.som + "/5.wav"
 
 
-def play_threaded(filename, repeat=False, volume=1.0):
+def play_threaded(filename, repeat=False, gain=0):
     def play_audio():
         while True:
             sound = AudioSegment.from_file(filename, format="wav")
-            sound = sound.apply_gain(volume)
+            sound = sound.apply_gain(gain)
             play(sound)
             if not repeat:
                 break
@@ -421,7 +421,7 @@ fechar()
 pixels.fill(BRANCO)
 pixels[inicio_caule:fim_caule] = [SUPERBRANCO] * pixels_count_caule
 ultimo_estimulo = 0
-play_threaded(audio_file_0, repeat=True, volume=0.3)
+play_threaded(audio_file_0, repeat=True, gain='-10')
 
 while True:
     ultimo_estimulo += 1
