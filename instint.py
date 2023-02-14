@@ -46,12 +46,14 @@ def log_data(event):
 if (args.prototipo):
     pixels_count = 10
     pixels_count_fita = 1
-    pixels_count_matriz = 5
+    pixels_count_matriz = 3
+    pixels_count_caule = 2
 
 else:
     pixels_count = 766
     pixels_count_fita = 90
     pixels_count_matriz = 256
+    pixels_count_caule = 60
 
 pixels = neopixel.NeoPixel(
     board.D10,
@@ -60,20 +62,26 @@ pixels = neopixel.NeoPixel(
     pixel_order=neopixel.GRB
 )
 
+inicio_matriz = 0
+fim_matriz = pixels_count_matriz
+
 inicio_fita_1 = pixels_count_matriz
 fim_fita_1 = inicio_fita_1 + pixels_count_fita
 
-inicio_fita_2 = pixels_count_matriz + pixels_count_fita
+inicio_fita_2 = fim_fita_1
 fim_fita_2 = inicio_fita_2 + pixels_count_fita
 
-inicio_fita_3 = pixels_count_matriz + pixels_count_fita * 2
+inicio_fita_3 = fim_fita_2
 fim_fita_3 = inicio_fita_3 + pixels_count_fita
 
-inicio_fita_4 = pixels_count_matriz + pixels_count_fita * 3
+inicio_fita_4 = fim_fita_3
 fim_fita_4 = inicio_fita_4 + pixels_count_fita
 
-inicio_fita_5 = pixels_count_matriz + pixels_count_fita * 4
+inicio_fita_5 = fim_fita_4
 fim_fita_5 = inicio_fita_5 + pixels_count_fita
+
+inicio_caule = fim_fita_5
+fim_caule = pixels_count
 
 BRANCO = (160, 160, 160)  # brilho reduzido
 SUPERBRANCO = (255, 255, 255)  # usar somente no 'caule'
@@ -411,6 +419,7 @@ def falta_de_estimulo():
 
 fechar()
 pixels.fill(BRANCO)
+pixels[inicio_caule:fim_caule] = [SUPERBRANCO] * pixels_count_caule
 ultimo_estimulo = 0
 play_threaded(audio_file_0, repeat=True, volume=0.3)
 
