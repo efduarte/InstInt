@@ -15,6 +15,7 @@ import sys
 from pydub import AudioSegment
 from pydub.playback import play
 from threading import Thread
+import argparse
 
 ###############################################################################
 #                                                                             #
@@ -22,16 +23,16 @@ from threading import Thread
 #                                                                             #
 ###############################################################################
 
+# Argumentos do Script
+parser = argparse.ArgumentParser(prog='InstInt')
+parser.add_argument('-p', '--prototipo', action='store_true')
+parser.add_argument('-l', '--logname', default='log_')
+parser.add_argument('-s', '--som', default='instint', choices=['instint', 'piano'])
+args = parser.parse_args()
+
 # Logs de Sistema e Argumentos
 agora = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-log_filename = "log_{}.csv".format(agora)
-
-
-prototipo = False
-if len(sys.argv) > 1:
-    log_filename = "log_" + sys.argv[1] + "_{}.csv".format(agora)
-    if sys.argv[1] == "prototipo":
-        prototipo = True
+log_filename = args.logname + "_{}.csv".format(agora)
 
 
 def log_data(event):
@@ -42,7 +43,7 @@ def log_data(event):
         csvwriter.writerow([now, event])
 
 # Neopixels
-if prototipo is True:
+if (args.prototipo):
     pixels_count = 10
     pixels_count_fita = 1
     pixels_count_matriz = 5
@@ -128,12 +129,12 @@ def signal_handler(signal, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 # Arquivos de Audio e Play com Threads
-audio_file_base = "audio/feliz-base.wav"
-audio_file_1    = "audio/s1-orgao.wav"
-audio_file_2    = "audio/s2-orgao.wav"
-audio_file_3    = "audio/s3-flauta.wav"
-audio_file_4    = "audio/s4-flauta.wav"
-audio_file_5    = "audio/s5-clav.wav"
+audio_file_0 = "audio/" + args.som + "/0.wav"
+audio_file_1 = "audio/" + args.som + "/1.wav"
+audio_file_2 = "audio/" + args.som + "/2.wav"
+audio_file_3 = "audio/" + args.som + "/3.wav"
+audio_file_4 = "audio/" + args.som + "/4.wav"
+audio_file_5 = "audio/" + args.som + "/5.wav"
 
 
 def play_threaded(filename, repeat=False, volume=1.0):
@@ -411,7 +412,7 @@ def falta_de_estimulo():
 fechar()
 pixels.fill(BRANCO)
 ultimo_estimulo = 0
-play_threaded(audio_file_base, repeat=True, volume=0.3)
+play_threaded(audio_file_0, repeat=True, volume=0.3)
 
 while True:
     ultimo_estimulo += 1
