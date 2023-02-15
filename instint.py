@@ -204,7 +204,7 @@ def fita_tocada_2():
 
 def fita_tocada_3():
     log_data("Toque na Fita 3")
-    fita_3.fill(PINK)
+    fita_3.fill(MAGENTA)
     estimulo("toque")
     play_threaded(audio_file_3)
 
