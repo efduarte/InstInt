@@ -307,16 +307,19 @@ fim_fechamento.when_pressed = parar_fechamento
 def girar_direita(velocidade=velocidade_rotacao_1):
     log_data("Girando no sentido horário")
     motor_rotacao.forward(speed=velocidade)
+    pixels[inicio_matriz:fim_matriz] = [AZUL] * pixels_count_matriz
 
 
 def girar_esquerda(velocidade=velocidade_rotacao_1):
     log_data("Girando no sentido anti-horário")
     motor_rotacao.backward(speed=velocidade)
+    pixels[inicio_matriz:fim_matriz] = [VERMELHO] * pixels_count_matriz
 
 
 def parar_giro():
     log_data("Parando giro")
     motor_rotacao.stop()
+    pixels[inicio_matriz:fim_matriz] = [BRANCO] * pixels_count_matriz
 
 ###############################################################################
 #                                                                             #
