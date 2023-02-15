@@ -8,6 +8,7 @@ import os
 import time
 import board
 import neopixel
+from adafruit_led_animation.helper import PixelSubset
 from gpiozero import Button, MotionSensor, Motor
 import csv
 from datetime import datetime
@@ -63,30 +64,38 @@ else:
 pixels = neopixel.NeoPixel(
     board.D10,
     pixels_count,
+    brightness=1.0,
     auto_write=True,
     pixel_order=neopixel.GRB
 )
 
 inicio_matriz = 0
 fim_matriz = pixels_count_matriz
+matriz = PixelSubset(pixels, 0, pixels_count_matriz)
 
 inicio_fita_1 = pixels_count_matriz
 fim_fita_1 = inicio_fita_1 + pixels_count_fita
+fita_1 = PixelSubset(pixels, inicio_fita_1, fim_fita_1)
 
 inicio_fita_2 = fim_fita_1
 fim_fita_2 = inicio_fita_2 + pixels_count_fita
+fita_2 = PixelSubset(pixels, inicio_fita_2, fim_fita_2)
 
 inicio_fita_3 = fim_fita_2
 fim_fita_3 = inicio_fita_3 + pixels_count_fita
+fita_3 = PixelSubset(pixels, inicio_fita_3, fim_fita_3)
 
 inicio_fita_4 = fim_fita_3
 fim_fita_4 = inicio_fita_4 + pixels_count_fita
+fita_4 = PixelSubset(pixels, inicio_fita_4, fim_fita_4)
 
 inicio_fita_5 = fim_fita_4
 fim_fita_5 = inicio_fita_5 + pixels_count_fita
+fita_5 = PixelSubset(pixels, inicio_fita_5, fim_fita_5)
 
 inicio_caule = fim_fita_5
 fim_caule = pixels_count
+caule = PixelSubset(pixels, inicio_caule, fim_caule)
 
 BRANCO = (160, 160, 160)  # brilho reduzido
 SUPERBRANCO = (255, 255, 255)  # usar somente no 'caule'
@@ -181,35 +190,35 @@ def play_threaded(filename, repeat=False, gain=0):
 
 def fita_tocada_1():
     log_data("Toque na Fita 1")
-    pixels[inicio_fita_1:fim_fita_1] = [CARMESIM] * pixels_count_fita
+    fita_1.fill(VERMELHO)
     estimulo("toque")
     play_threaded(audio_file_1)
 
 
 def fita_tocada_2():
     log_data("Toque na Fita 2")
-    pixels[inicio_fita_2:fim_fita_2] = [DOURADO] * pixels_count_fita
+    fita_2.fill(AMARELO)
     estimulo("toque")
     play_threaded(audio_file_2)
 
 
 def fita_tocada_3():
     log_data("Toque na Fita 3")
-    pixels[inicio_fita_3:fim_fita_3] = [MAGENTA] * pixels_count_fita
+    fita_3.fill(PINK)
     estimulo("toque")
     play_threaded(audio_file_3)
 
 
 def fita_tocada_4():
     log_data("Toque na Fita 4")
-    pixels[inicio_fita_4:fim_fita_4] = [CIANO] * pixels_count_fita
+    fita_4.fill(CIANO)
     estimulo("toque")
     play_threaded(audio_file_4)
 
 
 def fita_tocada_5():
     log_data("Toque na Fita 5")
-    pixels[inicio_fita_5:fim_fita_5] = [CHOCOLATE] * pixels_count_fita
+    fita_5.fill(VERDE)
     estimulo("toque")
     play_threaded(audio_file_5)
 
@@ -223,27 +232,27 @@ toque_fita_5.when_pressed = fita_tocada_5
 
 def fita_solta_1():
     log_data("Fim do toque na Fita 1")
-    pixels[inicio_fita_1:fim_fita_1] = [BRANCO] * pixels_count_fita
+    fita_1.fill(BRANCO)
 
 
 def fita_solta_2():
     log_data("Fim do toque na Fita 2")
-    pixels[inicio_fita_2:fim_fita_2] = [BRANCO] * pixels_count_fita
+    fita_2.fill(BRANCO)
 
 
 def fita_solta_3():
     log_data("Fim do toque na Fita 3")
-    pixels[inicio_fita_3:fim_fita_3] = [BRANCO] * pixels_count_fita
+    fita_3.fill(BRANCO)
 
 
 def fita_solta_4():
     log_data("Fim do toque na Fita 4")
-    pixels[inicio_fita_4:fim_fita_4] = [BRANCO] * pixels_count_fita
+    fita_4.fill(BRANCO)
 
 
 def fita_solta_5():
     log_data("Fim do toque na Fita 5")
-    pixels[inicio_fita_5:fim_fita_5] = [BRANCO] * pixels_count_fita
+    fita_5.fill(BRANCO)
 
 
 toque_fita_1.when_released = fita_solta_1
@@ -322,19 +331,19 @@ fim_fechamento.when_pressed = parar_fechamento
 def girar_direita(velocidade=velocidade_rotacao_1):
     log_data("Girando no sentido horário")
     motor_rotacao.forward(speed=velocidade)
-    pixels[inicio_matriz:fim_matriz] = [AZUL] * pixels_count_matriz
+    matriz.fill(AZUL)
 
 
 def girar_esquerda(velocidade=velocidade_rotacao_1):
     log_data("Girando no sentido anti-horário")
     motor_rotacao.backward(speed=velocidade)
-    pixels[inicio_matriz:fim_matriz] = [VERMELHO] * pixels_count_matriz
+    matriz.fill(VERMELHO)
 
 
 def parar_giro():
     log_data("Parando giro")
     motor_rotacao.stop()
-    pixels[inicio_matriz:fim_matriz] = [BRANCO] * pixels_count_matriz
+    matriz.fill(BRANCO)
 
 ###############################################################################
 #                                                                             #
@@ -437,7 +446,7 @@ def falta_de_estimulo():
 
 fechar()
 pixels.fill(BRANCO)
-pixels[inicio_caule:fim_caule] = [SUPERBRANCO] * pixels_count_caule
+caule.fill(SUPERBRANCO)
 ultimo_estimulo = 0
 play_threaded(audio_file_0, repeat=True, gain='-10')
 
