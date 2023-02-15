@@ -4,6 +4,7 @@
 #                                                                             #
 ###############################################################################
 
+import os
 import time
 import board
 import neopixel
@@ -13,9 +14,11 @@ from datetime import datetime
 import signal
 import sys
 from pydub import AudioSegment
-from pydub.playback import play
+from pydub.utils import get_player_name
 from threading import Thread
 import argparse
+import tempfile
+import subprocess
 
 ###############################################################################
 #                                                                             #
@@ -41,6 +44,8 @@ def log_data(event):
     with open(log_filename, 'a', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow([now, event])
+
+log_data("Inicializando InstInt com --som " + args.som)
 
 # Neopixels
 if (args.prototipo):
@@ -144,13 +149,23 @@ audio_file_3 = "audio/" + args.som + "/3.wav"
 audio_file_4 = "audio/" + args.som + "/4.wav"
 audio_file_5 = "audio/" + args.som + "/5.wav"
 
+PLAYER = get_player_name()
+
+
+def _play_with_ffplay_suppress(seg):
+    with tempfile.NamedTemporaryFile("w+b", suffix=".wav") as f:
+        seg.export(f.name, "wav")
+        devnull = open(os.devnull, 'w')
+        subprocess.call([PLAYER, "-nodisp", "-autoexit", "-hide_banner", f.name], stdout=devnull, stderr=devnull)
+
 
 def play_threaded(filename, repeat=False, gain=0):
     def play_audio():
         while True:
             sound = AudioSegment.from_file(filename, format="wav")
             sound = sound.apply_gain(gain)
-            play(sound)
+            _play_with_ffplay_suppress(sound)
+            log_data("Tocando audio" + filename)
             if not repeat:
                 break
 
