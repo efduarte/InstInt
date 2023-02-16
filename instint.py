@@ -301,7 +301,7 @@ def presenca_detectada_microondas():
 
 
 def presenca_detectada():
-    estimulo("presenca")
+    # estimulo("presenca")
 
 presenca_ir_1.when_motion = presenca_detectada_1
 presenca_ir_2.when_motion = presenca_detectada_2
