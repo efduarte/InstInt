@@ -191,7 +191,7 @@ def play_threaded(filename, repeat=False, gain=0):
 def fita_tocada_1():
     log_data("Toque na Fita 1")
     # fita_1.fill(VERMELHO)
-    fita_1[0:pixels_count_fita] = [VERMELHO] * pixels_count_fita
+    pixels[inicio_fita_1:fim_fita_1] = [VERMELHO] * pixels_count_fita
     estimulo("toque")
     play_threaded(audio_file_1)
 
@@ -199,7 +199,7 @@ def fita_tocada_1():
 def fita_tocada_2():
     log_data("Toque na Fita 2")
     # fita_2.fill(AMARELO)
-    fita_2[0:pixels_count_fita] = [AMARELO] * pixels_count_fita
+    pixels[inicio_fita_2:fim_fita_2] = [AMARELO] * pixels_count_fita
     estimulo("toque")
     play_threaded(audio_file_2)
 
@@ -207,7 +207,7 @@ def fita_tocada_2():
 def fita_tocada_3():
     log_data("Toque na Fita 3")
     # fita_3.fill(MAGENTA)
-    fita_3[0:pixels_count_fita] = [MAGENTA] * pixels_count_fita
+    pixels[inicio_fita_3:fim_fita_3] = [MAGENTA] * pixels_count_fita
     estimulo("toque")
     play_threaded(audio_file_3)
 
@@ -215,7 +215,7 @@ def fita_tocada_3():
 def fita_tocada_4():
     log_data("Toque na Fita 4")
     # fita_4.fill(CIANO)
-    fita_4[0:pixels_count_fita] = [CIANO] * pixels_count_fita
+    pixels[inicio_fita_4:fim_fita_4] = [CIANO] * pixels_count_fita
     estimulo("toque")
     play_threaded(audio_file_4)
 
@@ -223,7 +223,7 @@ def fita_tocada_4():
 def fita_tocada_5():
     log_data("Toque na Fita 5")
     # fita_5.fill(VERDE)
-    fita_5[0:pixels_count_fita] = [VERDE] * pixels_count_fita
+    pixels[inicio_fita_5:fim_fita_5] = [VERDE] * pixels_count_fita
     estimulo("toque")
     play_threaded(audio_file_5)
 
@@ -238,31 +238,31 @@ toque_fita_5.when_pressed = fita_tocada_5
 def fita_solta_1():
     log_data("Fim do toque na Fita 1")
     # fita_1.fill(BRANCO)
-    fita_1[0:pixels_count_fita] = [BRANCO] * pixels_count_fita
+    pixels[inicio_fita_1:fim_fita_1] = [BRANCO] * pixels_count_fita
 
 
 def fita_solta_2():
     log_data("Fim do toque na Fita 2")
     # fita_2.fill(BRANCO)
-    fita_2[0:pixels_count_fita] = [BRANCO] * pixels_count_fita
+    pixels[inicio_fita_2:fim_fita_2] = [BRANCO] * pixels_count_fita
 
 
 def fita_solta_3():
     log_data("Fim do toque na Fita 3")
     # fita_3.fill(BRANCO)
-    fita_3[0:pixels_count_fita] = [BRANCO] * pixels_count_fita
+    pixels[inicio_fita_3:fim_fita_3] = [BRANCO] * pixels_count_fita
 
 
 def fita_solta_4():
     log_data("Fim do toque na Fita 4")
     # fita_4.fill(BRANCO)
-    fita_4[0:pixels_count_fita] = [BRANCO] * pixels_count_fita
+    pixels[inicio_fita_4:fim_fita_4] = [BRANCO] * pixels_count_fita
 
 
 def fita_solta_5():
     log_data("Fim do toque na Fita 5")
     # fita_5.fill(BRANCO)
-    fita_5[0:pixels_count_fita] = [BRANCO] * pixels_count_fita
+    pixels[inicio_fita_5:fim_fita_5] = [BRANCO] * pixels_count_fita
 
 
 toque_fita_1.when_released = fita_solta_1
@@ -342,21 +342,21 @@ def girar_direita(velocidade=velocidade_rotacao_1):
     log_data("Girando no sentido horário")
     motor_rotacao.forward(speed=velocidade)
     # matriz.fill(AZUL)
-    matriz[0:pixels_count_matriz] = [AZUL] * pixels_count_matriz
+    pixels[inicio_matriz:fim_matriz] = [AZUL] * pixels_count_matriz
 
 
 def girar_esquerda(velocidade=velocidade_rotacao_1):
     log_data("Girando no sentido anti-horário")
     motor_rotacao.backward(speed=velocidade)
     # matriz.fill(VERMELHO)
-    matriz[0:pixels_count_matriz] = [VERMELHO] * pixels_count_matriz
+    pixels[inicio_matriz:fim_matriz] = [VERMELHO] * pixels_count_matriz
 
 
 def parar_giro():
     log_data("Parando giro")
     motor_rotacao.stop()
     # matriz.fill(BRANCO)
-    matriz[0:pixels_count_matriz] = [BRANCO] * pixels_count_matriz
+    pixels[inicio_matriz:fim_matriz] = [BRANCO] * pixels_count_matriz
 
 ###############################################################################
 #                                                                             #
@@ -459,8 +459,6 @@ def falta_de_estimulo():
 
 fechar()
 pixels.fill(BRANCO)
-# caule.fill(SUPERBRANCO)
-caule[0:pixels_count_caule] = [BRANCO] * pixels_count_caule
 ultimo_estimulo = 0
 #play_threaded(audio_file_0, repeat=True, gain='-10')
 
