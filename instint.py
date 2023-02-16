@@ -136,7 +136,7 @@ presenca_microondas = MotionSensor(23)
 motor_vertical = Motor(20, 21)
 velocidade_vertical = 1
 motor_rotacao = Motor(16, 26)
-velocidade_rotacao_1 = 0.5
+velocidade_rotacao_1 = 0.75
 velocidade_rotacao_2 = 1.0
 fim_abertura = Button(24, pull_up=False)
 fim_fechamento = Button(25, pull_up=False)
