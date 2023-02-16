@@ -54,12 +54,14 @@ if (args.prototipo):
     pixels_count_fita = 1
     pixels_count_matriz = 3
     pixels_count_caule = 2
+    ajuste_fita_1 = 0
 
 else:
     pixels_count = 766
     pixels_count_fita = 90
     pixels_count_matriz = 256
     pixels_count_caule = 60
+    ajuste_fita_1 = -1
 
 pixels = neopixel.NeoPixel(
     board.D10,
@@ -74,7 +76,7 @@ fim_matriz = pixels_count_matriz
 matriz = PixelSubset(pixels, 0, pixels_count_matriz)
 
 inicio_fita_1 = pixels_count_matriz
-fim_fita_1 = inicio_fita_1 + pixels_count_fita
+fim_fita_1 = inicio_fita_1 + pixels_count_fita + ajuste_fita_1
 fita_1 = PixelSubset(pixels, inicio_fita_1, fim_fita_1)
 
 inicio_fita_2 = fim_fita_1
@@ -131,7 +133,7 @@ presenca_ir_3 = MotionSensor(1)
 presenca_microondas = MotionSensor(23)
 
 # Movimento
-motor_vertical = Motor(21, 20)
+motor_vertical = Motor(20, 21)
 velocidade_vertical = 1
 motor_rotacao = Motor(16, 26)
 velocidade_rotacao_1 = 0.5
@@ -459,12 +461,13 @@ def falta_de_estimulo():
 
 fechar()
 pixels.fill(BRANCO)
+time.sleep(5)
 ultimo_estimulo = 0
 #play_threaded(audio_file_0, repeat=True, gain='-10')
 
 while True:
-    ultimo_estimulo += 1
-    time.sleep(1)
+    ultimo_estimulo += 0.1
+    time.sleep(0.1)
     if ultimo_estimulo >= 15:
         falta_de_estimulo()
         ultimo_estimulo = 0
