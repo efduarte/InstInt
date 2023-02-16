@@ -64,7 +64,7 @@ else:
 pixels = neopixel.NeoPixel(
     board.D10,
     pixels_count,
-    brightness=1.0,
+    brightness=0.6,
     auto_write=True,
     pixel_order=neopixel.GRB
 )
@@ -462,7 +462,7 @@ pixels.fill(BRANCO)
 # caule.fill(SUPERBRANCO)
 caule[0:pixels_count_caule] = [BRANCO] * pixels_count_caule
 ultimo_estimulo = 0
-play_threaded(audio_file_0, repeat=True, gain='-10')
+#play_threaded(audio_file_0, repeat=True, gain='-10')
 
 while True:
     ultimo_estimulo += 1
