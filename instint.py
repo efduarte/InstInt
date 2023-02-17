@@ -301,7 +301,8 @@ def presenca_detectada_microondas():
 
 
 def presenca_detectada():
-    # estimulo("presenca")
+    #if motor_vertical.value == 0 and motor_rotacao.value == 0:
+    #    estimulo("presenca")
     return
 
 presenca_ir_1.when_motion = presenca_detectada_1
