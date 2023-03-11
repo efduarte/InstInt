@@ -66,7 +66,7 @@ else:
 pixels = neopixel.NeoPixel(
     board.D10,
     pixels_count,
-    brightness=0.6,
+    brightness=0.35,
     auto_write=True,
     pixel_order=neopixel.GRB
 )
@@ -99,8 +99,7 @@ inicio_caule = fim_fita_5
 fim_caule = pixels_count
 caule = PixelSubset(pixels, inicio_caule, fim_caule)
 
-BRANCO = (160, 160, 160)  # brilho reduzido
-SUPERBRANCO = (255, 255, 255)  # usar somente no 'caule'
+BRANCO = (255, 255, 255)
 PRETO = (0, 0, 0)  # desligado
 VERMELHO = (255, 0, 0)
 CARMESIM = (220, 20, 60)
